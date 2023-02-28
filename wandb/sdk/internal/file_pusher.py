@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 # Temporary directory for copies we make of some file types to
 # reduce the probability that the file gets changed while we're
 # uploading it.
-TMP_DIR = tempfile.TemporaryDirectory("wandb")
+TMP_DIR = tempfile.TemporaryDirectory("wandb", dir="/home/rd654/rds/hpc-work/tmp")
 
 
 logger = logging.getLogger(__name__)
@@ -44,7 +44,7 @@ class FilePusher:
     ) -> None:
         self._api = api
 
-        self._tempdir = tempfile.TemporaryDirectory("wandb")
+        self._tempdir = tempfile.TemporaryDirectory("wandb", dir="/home/rd654/rds/hpc-work/tmp")
 
         self._stats = stats.Stats()
 
