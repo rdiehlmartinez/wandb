@@ -323,14 +323,15 @@ class Agent:
                     self._server_responses.append(self._process_command(command))
 
         except KeyboardInterrupt:
-            try:
-                wandb.termlog(
-                    "Ctrl-c pressed. Waiting for runs to end. Press ctrl-c again to terminate them."
-                )
-                for _, run_process in self._run_processes.items():
-                    run_process.wait()
-            except KeyboardInterrupt:
-                pass
+            pass
+            # try:
+            #     wandb.termlog(
+            #         "Ctrl-c pressed. Waiting for runs to end. Press ctrl-c again to terminate them."
+            #     )
+            #     for _, run_process in self._run_processes.items():
+            #         run_process.wait()
+            # except KeyboardInterrupt:
+            #     pass
         finally:
             try:
                 if not self._in_jupyter:
@@ -349,6 +350,9 @@ class Agent:
                         run_process.kill()
                     except OSError:
                         pass  # if process is already dead
+            finally:
+                # trigger re-queue of job w/ 124 
+                exit(124)
 
     def _process_command(self, command):
         logger.info(
